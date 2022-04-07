@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Locations";
+}
+
+@model LocationViewModel
+<br />
+<br />
+<br />
+<br />
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <form asp-controller="Home" asp-action="Location">
+                <p>
+                    Search by City: <input type="text" name="searchString" />
+                    <input type="submit" value="Find" /> @*Search box only returning 1 record*@
+                </p>
+            </form>
+        </div>
+
+        <div class="col-9">
+            @foreach (Location l in Model.Location)
+            {
+                <div class="card card-outline-primary m-1 p-1">
+
+                    <ul>
+                        <li>Location ID: @l.loc_id</li>
+                        <li>City: @l.city</li>
+                    </ul>
+
+                    <br />
+                </div>
+            }
+            <div page-blah2="@Model.LocationPageInfo" page-action="Location" page-class="btn" page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary" page-classes-enabled="true" class="btn-group pull-right m-1"> <br /> </div>
+        </div>
+    </div>
+</div>
+

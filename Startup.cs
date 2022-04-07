@@ -1,4 +1,5 @@
 using CrashUno.Data;
+using CrashUno.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -22,11 +23,15 @@ namespace CrashUno
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TrafficContext>(options =>
+            {
+                options.UseMySql(Configuration["ConnectionStrings:TrafficConnection"], new MySqlServerVersion(new Version()));
+            });
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -35,6 +40,9 @@ namespace CrashUno
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+            
+            services.AddScoped<IRepository, EFRepository>();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,9 +69,21 @@ namespace CrashUno
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("typepage",
+                    "{crashseverityid}/Page{pageNum}",
+                    new { Controller = "Home", action = "Crash" });
+
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    name: "Paging",
+                    pattern: "Page{pageNum}",
+                    defaults: new { Controller = "Home", action = "Index", pageNum = 1 });
+
+                endpoints.MapControllerRoute("type",
+                    "{crashseverityid}",
+                    new { Controller = "Home", action = "Crash", pageNum = 1 });
+
+                endpoints.MapDefaultControllerRoute();
+
                 endpoints.MapRazorPages();
             });
         }
