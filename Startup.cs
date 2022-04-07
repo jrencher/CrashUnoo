@@ -40,9 +40,16 @@ namespace CrashUno
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
             
             services.AddScoped<IRepository, EFRepository>();
             services.AddRazorPages();
+
+            //this is where the password settings change
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 10;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
