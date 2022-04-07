@@ -2,6 +2,7 @@ using CrashUno.Data;
 using CrashUno.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -43,6 +44,14 @@ namespace CrashUno
             services.AddControllersWithViews();
             
             services.AddScoped<IRepository, EFRepository>();
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential 
+                // cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                // requires using Microsoft.AspNetCore.Http;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
             services.AddRazorPages();
             services.AddSingleton<InferenceSession>(
                 new InferenceSession("Models/traffic.onnx")
@@ -65,6 +74,7 @@ namespace CrashUno
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseRouting();
 
