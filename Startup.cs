@@ -33,7 +33,7 @@ namespace CrashUno
                 options.UseMySql(Configuration["ConnectionStrings:TrafficConnection"], new MySqlServerVersion(new Version()));
             });
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
