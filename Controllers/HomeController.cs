@@ -75,7 +75,7 @@ namespace CrashUno.Controllers
             {
                 pageSize = 4;
                 y.Location = repo.Location.Where(x => x.city == searchString)
-                    .Skip((pageNum - 1) * pageSize) //LOCATION SEARCH ONLY RETURNS 1 RECORD per SEARCH PLZ HELP
+                    .Skip((pageNum - 1) * pageSize) 
                     .Take(pageSize);
             };
             
