@@ -47,7 +47,6 @@ namespace CrashUno.Controllers
                 x.Crash = repo.Crash.Where(x => x.crash_id == searchString).Include(x => x.location);
             };
 
-
             return View(x);
         }
 
