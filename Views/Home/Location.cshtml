@@ -12,13 +12,16 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-3">
+        <div class="col-3 text-center">
             <form asp-controller="Home" asp-action="Location">
                 <p>
                     Search by City: <input type="text" name="searchString" />
-                    <input type="submit" value="Find" /> @*Search box only returning 1 record*@
+                    <input type="submit" value="Find" />
                 </p>
             </form>
+            <img src="~/img/INTEX2Photos/location3img2.jpg" height="420" /> @*Need to CSS a border-radius="15px" give IMG rounded corners*@
+            <br />
+            <small>(Yeet)</small>
         </div>
 
         <div class="col-9">
