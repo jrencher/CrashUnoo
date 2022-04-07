@@ -69,6 +69,8 @@ namespace CrashUno
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("admin", "admin", new { Controller = "Admin", action = "Index" });
+
                 endpoints.MapControllerRoute("typepage",
                     "{crashseverityid}/Page{pageNum}",
                     new { Controller = "Home", action = "Crash" });

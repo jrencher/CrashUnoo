@@ -19,7 +19,7 @@ namespace CrashUno.Controllers
         {
             repo = temp;
         }
-
+        [Authorize]
         public IActionResult Index(int searchString = 0, int pageNum = 1)
         {
             int pageSize = 13;
@@ -50,7 +50,7 @@ namespace CrashUno.Controllers
 
             return View(x);
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult Edit(int crashid)
         {
@@ -60,7 +60,7 @@ namespace CrashUno.Controllers
             return View("Form", c);
         }
 
-
+        [Authorize]
         [HttpPost]
         public IActionResult Edit(Crash c)
         {
@@ -68,7 +68,7 @@ namespace CrashUno.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult Add()
         {
@@ -78,7 +78,7 @@ namespace CrashUno.Controllers
             return View("Form", c);
         }
 
-
+        [Authorize]
         [HttpPost]
         public IActionResult Add(Crash c)
         {
@@ -94,7 +94,7 @@ namespace CrashUno.Controllers
 
         }
 
-
+        [Authorize]
         public IActionResult Delete(int crashid)
         {
             var c = repo.Crash.FirstOrDefault(x => x.crash_id == crashid);
