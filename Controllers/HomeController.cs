@@ -3,6 +3,7 @@ using CrashUno.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.ML.OnnxRuntime;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,10 +15,12 @@ namespace CrashUno.Controllers
     public class HomeController : Controller
     {
         private IRepository repo;
+        private InferenceSession _session;
 
-        public HomeController (IRepository temp)
+        public HomeController (IRepository temp, InferenceSession session)
         {
             repo = temp;
+            _session = session;
         }
         
         public IActionResult Index()
@@ -80,6 +83,12 @@ namespace CrashUno.Controllers
             };
             
             return View(y);
+        }
+
+        public IActionResult LocationDetail(int locid)
+        {
+            var loc = repo.Location.FirstOrDefault(x => x.loc_id == locid);
+            return View(loc);
         }
 
     }
