@@ -55,7 +55,7 @@ namespace CrashUno
             });
             services.AddRazorPages();
             services.AddSingleton<InferenceSession>(
-                new InferenceSession("Models/traffic.onnx")
+                new InferenceSession("wwwroot/traffic.onnx")
             );
 
             //this is where the password settings change
