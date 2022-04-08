@@ -23,6 +23,10 @@ namespace CrashUno
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var builder = new ConfigurationBuilder() //
+                .AddEnvironmentVariables(); //prefix: "TrafficConnection"
+
+            Configuration = builder.Build(); //
         }
 
         public IConfiguration Configuration { get; set; }
@@ -32,12 +36,15 @@ namespace CrashUno
         {
             services.AddDbContext<TrafficContext>(options =>
             {
-                options.UseMySql(Configuration["ConnectionStrings:TrafficConnection"], new MySqlServerVersion(new Version()));
-                //options.UseMySql(Configuration[Environment.GetEnvironmentVariable("TrafficConnection")], new MySqlServerVersion(new Version()));
+                //options.UseMySql(Configuration["ConnectionStrings:TrafficConnection"], new MySqlServerVersion(new Version()));
+                options.UseMySql(Environment.GetEnvironmentVariable("TrafficConnection"), new MySqlServerVersion(new Version()));
             });
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => {
+                //options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                //options.UseSqlite(Configuration.GetConnectionString([Environment.GetEnvironmentVariable("Identity")]);
+                options.UseSqlite(Environment.GetEnvironmentVariable("Identity"));
+            });
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
