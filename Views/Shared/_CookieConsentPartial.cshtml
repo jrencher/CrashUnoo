@@ -8,8 +8,8 @@
 
 @if (showBanner)
 {
-    <div valign="botton" position="bottom" id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
-        Use this space to summarize your privacy and cookie use policy. <a asp-page="/Privacy">Learn More</a>.
+   <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
+        Plese click accept. We will give you cookies. <a asp-page="/Privacy">Learn More</a>.
         <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
             <span aria-hidden="true">Accept</span>
         </button>
@@ -22,4 +22,4 @@
             }, false);
         })();
     </script>
-}
+}*
