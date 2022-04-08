@@ -20,7 +20,7 @@ a {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #1b6ec2;
+  background-color: #31c693;
   border-color: #1861ac;
 }
 
@@ -61,7 +61,6 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
-  min-height: 100%
 }
 
 .consentBanner {
