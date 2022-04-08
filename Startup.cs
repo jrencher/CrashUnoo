@@ -40,8 +40,7 @@ namespace CrashUno
                 options.UseMySql(Environment.GetEnvironmentVariable("TrafficConnection"), new MySqlServerVersion(new Version()));
             });
             services.AddDbContext<ApplicationDbContext>(options => {
-                //options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-                //options.UseSqlite(Configuration.GetConnectionString([Environment.GetEnvironmentVariable("Identity")]);
+                //options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")); // ) put this back in later
                 options.UseSqlite(Environment.GetEnvironmentVariable("Identity"));
             });
 
