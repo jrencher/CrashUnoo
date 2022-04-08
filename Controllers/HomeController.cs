@@ -27,7 +27,7 @@ namespace CrashUno.Controllers
         private float single_vehicle = 0.2380F;
         private float distracted = 0.0908F;
 
-        public HomeController (IRepository temp, InferenceSession session)
+        public HomeController (IRepository temp, InferenceSession session) //
         {
             repo = temp;
             _session = session;
@@ -98,9 +98,9 @@ namespace CrashUno.Controllers
         public IActionResult LocationDetail(int locid)
         {
             var loc = repo.Location.FirstOrDefault(x => x.loc_id == locid);
-            
+
             // average scores in each category for the selected city
-            var s_pedestrian = repo.Crash.Where(x => x.loc_id == locid).Average(x => x.pedestrian_involved) > pedestrian? 1.0f : 0.0f;
+            var s_pedestrian = repo.Crash.Where(x => x.loc_id == locid).Average(x => x.pedestrian_involved) > pedestrian ? 1.0f : 0.0f;
             var s_bicycle = repo.Crash.Where(x => x.loc_id == locid).Average(x => x.bicyclist_involved) > bicycle ? 1.0f : 0.0f;
             var s_motorcyle = repo.Crash.Where(x => x.loc_id == locid).Average(x => x.motorcycle_involved) > motorcycle ? 1.0f : 0.0f;
             var s_imp_restraint = repo.Crash.Where(x => x.loc_id == locid).Average(x => x.improper_restraint) > imp_restraint ? 1.0f : 0.0f;
@@ -208,7 +208,7 @@ namespace CrashUno.Controllers
                 NamedOnnxValue.CreateFromTensor("float_input", ms_td.AsTensor())
             });
             Tensor<float> ms_score = ms_result.First().AsTensor<float>();
-            var ms_prediction = new Prediction { PredictedValue = (float)Math.Round((ms_score.First() * 2),2) };
+            var ms_prediction = new Prediction { PredictedValue = (float)Math.Round((ms_score.First() * 2), 2) };
             ms_result.Dispose();
 
             // ***START OF UNRESTRAINED SCORE PREDICTION***
@@ -352,7 +352,7 @@ namespace CrashUno.Controllers
 
             };
 
-            return View(vm);
+            return View(vm); //vm
 
         }
 
